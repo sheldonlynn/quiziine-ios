@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QuizQuestionCell" customModule="quiziine" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="QuizQuestionCell" id="gTV-IL-0wX" customClass="QuizQuestionCell" customModule="quiziine" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="250"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="250"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scA-QA-bDr">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="250"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5e-wB-eTn">
+                                <rect key="frame" x="8" y="8" width="484" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.81084344730000002" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="O5e-wB-eTn" secondAttribute="trailing" constant="8" id="Dp6-wm-MuC"/>
+                            <constraint firstItem="O5e-wB-eTn" firstAttribute="leading" secondItem="scA-QA-bDr" secondAttribute="leading" constant="8" id="FSa-sG-fDR"/>
+                            <constraint firstItem="O5e-wB-eTn" firstAttribute="top" secondItem="scA-QA-bDr" secondAttribute="top" constant="8" id="LVY-b0-RTi"/>
+                            <constraint firstAttribute="width" constant="500" id="XZ7-rw-BdO"/>
+                            <constraint firstAttribute="bottom" secondItem="O5e-wB-eTn" secondAttribute="bottom" constant="221" id="rMF-1h-Va6"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="scA-QA-bDr" secondAttribute="bottom" id="WFH-Ym-Xap"/>
+                <constraint firstItem="scA-QA-bDr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="X3A-Em-Cfx"/>
+                <constraint firstAttribute="trailing" secondItem="scA-QA-bDr" secondAttribute="trailing" id="aFI-OF-l0h"/>
+                <constraint firstItem="scA-QA-bDr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hT8-RO-2lJ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="306" height="50"/>
+            <connections>
+                <outlet property="questionLabel" destination="O5e-wB-eTn" id="VOJ-4P-JSU"/>
+                <outlet property="widthConstraint" destination="XZ7-rw-BdO" id="apx-Fg-7i8"/>
+            </connections>
+            <point key="canvasLocation" x="-60" y="-49"/>
+        </collectionViewCell>
+    </objects>
+</document>
