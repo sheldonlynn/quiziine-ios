@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		DD7D38E52087EFC50039BF0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D38E42087EFC50039BF0E /* AppDelegate.swift */; };
 		DD7D38E72087EFC50039BF0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D38E62087EFC50039BF0E /* ViewController.swift */; };
-		DD7D38EA2087EFC50039BF0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD7D38E82087EFC50039BF0E /* Main.storyboard */; };
+		DD7D38EA2087EFC50039BF0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD7D38E82087EFC50039BF0E /* Main.storyboard */; settings = {ASSET_TAGS = (1, ); }; };
 		DD7D38ED2087EFC50039BF0E /* quiziine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD7D38EB2087EFC50039BF0E /* quiziine.xcdatamodeld */; };
 		DD7D38EF2087EFC70039BF0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD7D38EE2087EFC70039BF0E /* Assets.xcassets */; };
 		DD7D38F22087EFC70039BF0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD7D38F02087EFC70039BF0E /* LaunchScreen.storyboard */; };
@@ -19,6 +19,9 @@
 		DD7D390E2087FD2E0039BF0E /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D390D2087FD2E0039BF0E /* QuizViewController.swift */; };
 		DD7D3911208803960039BF0E /* QuizQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D390F208803960039BF0E /* QuizQuestionCell.swift */; };
 		DD7D3912208803960039BF0E /* QuizQuestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD7D3910208803960039BF0E /* QuizQuestionCell.xib */; };
+		DD7D3914208941F30039BF0E /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D3913208941F30039BF0E /* OverlayView.swift */; };
+		DD7D3916208942050039BF0E /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD7D3915208942050039BF0E /* OverlayView.xib */; };
+		DD7D3918208945BC0039BF0E /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D3917208945BC0039BF0E /* ResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		DD7D390D2087FD2E0039BF0E /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		DD7D390F208803960039BF0E /* QuizQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestionCell.swift; sourceTree = "<group>"; };
 		DD7D3910208803960039BF0E /* QuizQuestionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizQuestionCell.xib; sourceTree = "<group>"; };
+		DD7D3913208941F30039BF0E /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		DD7D3915208942050039BF0E /* OverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
+		DD7D3917208945BC0039BF0E /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,7 @@
 				DD7D38E42087EFC50039BF0E /* AppDelegate.swift */,
 				DD7D38E62087EFC50039BF0E /* ViewController.swift */,
 				DD7D390D2087FD2E0039BF0E /* QuizViewController.swift */,
+				DD7D3917208945BC0039BF0E /* ResultViewController.swift */,
 				DD7D38E82087EFC50039BF0E /* Main.storyboard */,
 				DD7D38EE2087EFC70039BF0E /* Assets.xcassets */,
 				DD7D38F02087EFC70039BF0E /* LaunchScreen.storyboard */,
@@ -101,6 +108,8 @@
 				DD7D390B2087F3790039BF0E /* QuizListCell.xib */,
 				DD7D390F208803960039BF0E /* QuizQuestionCell.swift */,
 				DD7D3910208803960039BF0E /* QuizQuestionCell.xib */,
+				DD7D3913208941F30039BF0E /* OverlayView.swift */,
+				DD7D3915208942050039BF0E /* OverlayView.xib */,
 			);
 			path = quiziine;
 			sourceTree = "<group>";
@@ -158,6 +167,9 @@
 		DD7D38D92087EFC50039BF0E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					1,
+				);
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Sheldon Lynn";
@@ -196,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD7D3912208803960039BF0E /* QuizQuestionCell.xib in Resources */,
+				DD7D3916208942050039BF0E /* OverlayView.xib in Resources */,
 				DD7D38F22087EFC70039BF0E /* LaunchScreen.storyboard in Resources */,
 				DD7D38EF2087EFC70039BF0E /* Assets.xcassets in Resources */,
 				DD7D390C2087F3790039BF0E /* QuizListCell.xib in Resources */,
@@ -219,6 +232,8 @@
 			files = (
 				DD7D38E72087EFC50039BF0E /* ViewController.swift in Sources */,
 				DD7D390E2087FD2E0039BF0E /* QuizViewController.swift in Sources */,
+				DD7D3914208941F30039BF0E /* OverlayView.swift in Sources */,
+				DD7D3918208945BC0039BF0E /* ResultViewController.swift in Sources */,
 				DD7D3911208803960039BF0E /* QuizQuestionCell.swift in Sources */,
 				DD7D38E52087EFC50039BF0E /* AppDelegate.swift in Sources */,
 				DD7D390A2087F1800039BF0E /* QuizListCell.swift in Sources */,

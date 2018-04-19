@@ -19,24 +19,54 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 [
                     "query": "What's your favourite colour?",
                     "answers": [
-                        "Black": 1,
-                        "Green": 2,
-                        "Blue": 3,
-                        "Orange": 4,
-                        "Red": 5,
-                        "White": 6
+                        "Black",
+                        "Green",
+                        "Blue",
+                        "Orange",
+                        "Red"
                     ]
                 ],
                 [
                     "query": "Pick a movie",
                     "answers": [
-                        "Titanic": 1,
-                        "Armaggedon": 2,
-                        "Lion King": 3,
-                        "Gentlemen Prefer Blondes": 4,
-                        "Black Panther": 5,
-                        "Spaceballs": 6
+                        "Titanic",
+                        "Armaggedon",
+                        "Lion King",
+                        "Gentlemen Prefer Blondes",
+                        "Black Panther"
                     ]
+                ]
+            ],
+            "answerKey": [
+                [
+                    "result": "Monica",
+                    "image": "monica",
+                    "description": "Clean, neat, cool. You're anal retentive just like her!",
+                    "cuisine": "sushi"
+                ],
+                [
+                    "result": "Phoebe",
+                    "image": "phoebe",
+                    "description": "A total free spirit",
+                    "cuisine": "vegan"
+                ],
+                [
+                    "result": "Rachel",
+                    "image": "rachel",
+                    "description": "Rich but still friendly. She's a cool girl!",
+                    "cuisine": "french"
+                ],
+                [
+                    "result": "Chandler",
+                    "image": "chandler",
+                    "description": "Self proclaimed ladies man who cracks a funny joke",
+                    "cuisine": "burgers"
+                ],
+                [
+                    "result": "Joey",
+                    "image": "joey",
+                    "description": "Funny guy with a quick charm. How handsome.",
+                    "cuisine": "pizza"
                 ]
             ]
         ],
@@ -48,24 +78,54 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 [
                     "query": "What's your favourite colour?",
                     "answers": [
-                        "Black": 1,
-                        "Green": 2,
-                        "Blue": 3,
-                        "Orange": 4,
-                        "Red": 5,
-                        "White": 6
+                        "Black",
+                        "Green",
+                        "Blue",
+                        "Orange",
+                        "Red"
                     ]
                 ],
                 [
                     "query": "Pick a movie",
                     "answers": [
-                        "Titanic": 1,
-                        "Armaggedon": 2,
-                        "Lion King": 3,
-                        "Gentlemen Prefer Blondes": 4,
-                        "Black Panther": 5,
-                        "Spaceballs": 6
+                        "Titanic",
+                        "Armaggedon",
+                        "Lion King",
+                        "Gentlemen Prefer Blondes",
+                        "Black Panther"
                     ]
+                ]
+            ],
+            "answerKey": [
+                [
+                    "result": "Monica",
+                    "image": "monica",
+                    "description": "Clean, neat, cool. You're anal retentive just like her!",
+                    "cuisine": "sushi"
+                ],
+                [
+                    "result": "Phoebe",
+                    "image": "phoebe",
+                    "description": "A total free spirit",
+                    "cuisine": "vegan"
+                ],
+                [
+                    "result": "Rachel",
+                    "image": "rachel",
+                    "description": "Rich but still friendly. She's a cool girl!",
+                    "cuisine": "french"
+                ],
+                [
+                    "result": "Chandler",
+                    "image": "chandler",
+                    "description": "Self proclaimed ladies man who cracks a funny joke",
+                    "cuisine": "burgers"
+                ],
+                [
+                    "result": "Joey",
+                    "image": "joey",
+                    "description": "Funny guy with a quick charm. How handsome.",
+                    "cuisine": "pizza"
                 ]
             ]
         ],
@@ -77,24 +137,54 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 [
                     "query": "What's your favourite colour?",
                     "answers": [
-                        "Black": 1,
-                        "Green": 2,
-                        "Blue": 3,
-                        "Orange": 4,
-                        "Red": 5,
-                        "White": 6
+                        "Black",
+                        "Green",
+                        "Blue",
+                        "Orange",
+                        "Red"
                     ]
                 ],
                 [
                     "query": "Pick a movie",
                     "answers": [
-                        "Titanic": 1,
-                        "Armaggedon": 2,
-                        "Lion King": 3,
-                        "Gentlemen Prefer Blondes": 4,
-                        "Black Panther": 5,
-                        "Spaceballs": 6
+                        "Titanic",
+                        "Armaggedon",
+                        "Lion King",
+                        "Gentlemen Prefer Blondes",
+                        "Black Panther"
                     ]
+                ]
+            ],
+            "answerKey": [
+                [
+                    "result": "Monica",
+                    "image": "monica",
+                    "description": "Clean, neat, cool. You're anal retentive just like her!",
+                    "cuisine": "sushi"
+                ],
+                [
+                    "result": "Phoebe",
+                    "image": "phoebe",
+                    "description": "A total free spirit",
+                    "cuisine": "vegan"
+                ],
+                [
+                    "result": "Rachel",
+                    "image": "rachel",
+                    "description": "Rich but still friendly. She's a cool girl!",
+                    "cuisine": "french"
+                ],
+                [
+                    "result": "Chandler",
+                    "image": "chandler",
+                    "description": "Self proclaimed ladies man who cracks a funny joke",
+                    "cuisine": "burgers"
+                ],
+                [
+                    "result": "Joey",
+                    "image": "joey",
+                    "description": "Funny guy with a quick charm. How handsome.",
+                    "cuisine": "pizza"
                 ]
             ]
         ]
@@ -136,6 +226,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if segue.identifier == "ShowQuiz" {
             let index = sender as? IndexPath
             let quiz = quizzes[index!.item]
+            
             let receiver = segue.destination as! QuizViewController
             receiver.quiz = quiz
         }

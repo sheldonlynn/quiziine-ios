@@ -8,40 +8,113 @@
 
 import UIKit
 
-class QuizViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    @IBOutlet weak var quizTitle: UILabel!
+class QuizViewController: UIViewController {
+    //models
     var quiz: [String: Any]?
+    var answerKey: [[String: Any]]?
     var questions: [[String: Any]]?
-    @IBOutlet weak var quizQuestionCollectionView: UICollectionView!
+    var currQuestion: [String: Any]?
+    var userAnswers: [Int] = [0, 0, 0, 0, 0]
+    var quizResult: [String: String]?
+    
+    //variables
+    var currIdx: Int = 0
+    var overlayView: OverlayView!
+    
+    //outlets
+    @IBOutlet weak var quizTitle: UILabel!
+    @IBOutlet weak var questionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         questions = quiz?["questions"] as? [[String: Any]]
+        answerKey = quiz?["answerKey"] as? [[String: Any]]
+        
         quizTitle.text = quiz?["title"] as? String
         
-        quizQuestionCollectionView.register(UINib.init(nibName: "QuizQuestionCell", bundle: nil), forCellWithReuseIdentifier: "QuizQuestionCell")
-        if let flowLayout = quizQuestionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
+        displayQuestion()
+    }
+    
+    @IBAction func clickAnswer(_ sender: Any) {
+        //reached last question
+        if (currIdx + 1 >= (questions?.count)!) {
+            displayQuizResult()
+            return
+        }
+        
+        //increment answer key
+        userAnswers[(sender as AnyObject).tag - 1] += 1
+        
+        nextQuestion()
+    }
+    
+    func displayQuestion() {
+        currQuestion = questions?[currIdx]
+        questionLabel.text = currQuestion?["query"] as? String
+        let answers = currQuestion?["answers"] as? [String]
+        
+        //create uibutton
+        var button: UIButton = UIButton()
+        
+        for (index, element) in (answers?.enumerated())! {
+            //get button by tag
+            button = view.viewWithTag(index + 1) as! UIButton
+            button.setTitle(element, for: .normal)
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return questions!.count
+    func nextQuestion() {
+        currIdx += 1
+        displayQuestion()
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = quizQuestionCollectionView.dequeueReusableCell(withReuseIdentifier: "QuizQuestionCell", for: indexPath) as! QuizQuestionCell
-        cell.question = questions![indexPath.item]
-        cell.questionLabel.text = questions![indexPath.item]["query"] as? String
+    func displayQuizResult() {
+        let resultIdx = getResultIdx()
+        quizResult = answerKey![resultIdx] as? [String: String]
         
-        return cell
+        overlayBlurredBackgroundView()
+        
+        overlayView = OverlayView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        overlayView.image.image = UIImage.init(named: quizResult!["image"]!)
+        overlayView.title.text = quizResult!["result"]
+        overlayView.descript.text = quizResult!["description"]
+        overlayView.parentController = self
+        view.addSubview(overlayView)
     }
-
+    
+    func overlayBlurredBackgroundView() {
+        let blurredBackgroundView = UIVisualEffectView()
+        
+        blurredBackgroundView.frame = view.frame
+        blurredBackgroundView.effect = UIBlurEffect(style: .dark)
+        
+        view.addSubview(blurredBackgroundView)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func getResultIdx() -> Int {
+        var max = 0
+        var index = 0
+            
+        for (idx, num) in (userAnswers.enumerated()) {
+            if (num > max) {
+                max = num
+                index = idx
+            }
+        }
+        return index
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowResult" {
+//            let receiver = segue.destination as! ResultViewController
+//            receiver.quiz = quiz
+        }
+    }
 
     /*
     // MARK: - Navigation
