@@ -36,7 +36,37 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         "Gentlemen Prefer Blondes",
                         "Black Panther"
                     ]
-                ]
+                ],
+                [
+                    "query": "Travel Destination?",
+                    "answers": [
+                        "Germany",
+                        "Amsterdam",
+                        "Bahamas",
+                        "Japan",
+                        "New Orleans"
+                    ]
+                ],
+                [
+                    "query": "Favourite Book?",
+                    "answers": [
+                        "The Lifechanging Magic of Tidying Up",
+                        "Chicken Soup for the Soul",
+                        "The Devil Wears Prada",
+                        "Pickup Artist's Guide",
+                        "Sports Illustrated"
+                    ]
+                ],
+                [
+                    "query": "Best Dog Breed?",
+                    "answers": [
+                        "Italian Greyhound",
+                        "English Sheepdog",
+                        "Chihuahua",
+                        "Toy Poodle",
+                        "Corgi"
+                    ]
+                ],
             ],
             "answerKey": [
                 [
