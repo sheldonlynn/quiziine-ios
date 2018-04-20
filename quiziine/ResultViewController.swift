@@ -8,12 +8,13 @@
 
 import UIKit
 
-class ResultViewController: ViewController {
-
+class ResultViewController: UIViewController {
+    var foodType: String?
+    @IBOutlet weak var cuisine: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        cuisine.text = foodType!
     }
 
     override func didReceiveMemoryWarning() {

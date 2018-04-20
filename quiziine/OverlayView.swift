@@ -5,6 +5,9 @@
 //  Created by Sheldon Lynn on 2018-04-19.
 //  Copyright © 2018 Sheldon Lynn. All rights reserved.
 //
+protocol SegueDelegate {
+    func runSegue(identifier: String)
+}
 
 import UIKit
 
@@ -12,19 +15,20 @@ class OverlayView: UIView {
     
     @IBOutlet var contentView: UIView!
     weak var parentController: UIViewController?
+    var delegate: SegueDelegate?
     
     @IBOutlet weak var descript: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var getResult: UIButton!
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         initSubviews()
     }
-    @IBOutlet weak var getResult: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         initSubviews()
     }
     
@@ -34,10 +38,15 @@ class OverlayView: UIView {
         nib.instantiate(withOwner: self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)
+        
+        image.layer.cornerRadius = image.frame.size.width / 2
+        image.clipsToBounds = true
+    }
+    @IBAction func findRestaurant(_ sender: Any) {
+        runSegue(identifier: "ShowResult")
     }
     
-    func performSegue() {
-        let progressViewController = ViewController()
-        parentController?.show(progressViewController, sender: nil)
+    func runSegue(identifier: String) {
+        delegate?.runSegue(identifier: identifier)
     }
 }

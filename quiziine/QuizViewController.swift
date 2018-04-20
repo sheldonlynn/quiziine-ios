@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuizViewController: UIViewController {
+class QuizViewController: UIViewController, SegueDelegate {
     //models
     var quiz: [String: Any]?
     var answerKey: [[String: Any]]?
@@ -33,6 +33,9 @@ class QuizViewController: UIViewController {
         quizTitle.text = quiz?["title"] as? String
         
         displayQuestion()
+        
+        overlayView = OverlayView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        overlayView.delegate = self
     }
     
     @IBAction func clickAnswer(_ sender: Any) {
@@ -74,7 +77,6 @@ class QuizViewController: UIViewController {
         
         overlayBlurredBackgroundView()
         
-        overlayView = OverlayView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         overlayView.image.image = UIImage.init(named: quizResult!["image"]!)
         overlayView.title.text = quizResult!["result"]
         overlayView.descript.text = quizResult!["description"]
@@ -111,9 +113,14 @@ class QuizViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowResult" {
-//            let receiver = segue.destination as! ResultViewController
-//            receiver.quiz = quiz
+            let receiver = segue.destination as! ResultViewController
+            receiver.foodType = quizResult?["cuisine"]
         }
+    }
+    
+    func runSegue(identifier: String) {
+        print(identifier)
+        self.performSegue(withIdentifier: "ShowResult", sender: self)
     }
 
     /*

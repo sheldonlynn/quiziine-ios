@@ -164,7 +164,7 @@
                     <connections>
                         <outlet property="questionLabel" destination="KjF-Ud-aoO" id="X2q-iZ-KF4"/>
                         <outlet property="quizTitle" destination="UW4-u3-7iR" id="cJR-jW-qUL"/>
-                        <segue destination="JHT-aU-wc8" kind="show" identifier="ShowResult" id="WWE-ah-nNQ"/>
+                        <segue destination="JHT-aU-wc8" kind="presentation" identifier="ShowResult" modalTransitionStyle="crossDissolve" id="WWE-ah-nNQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZN-Kp-DCY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,16 +179,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dVk-4G-0a2">
-                                <rect key="frame" x="62" y="149" width="250" height="250"/>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cuisine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lmb-o4-oC8">
+                                <rect key="frame" x="159" y="286" width="57" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dVk-4G-0a2" firstAttribute="centerX" secondItem="Zpw-KZ-1w4" secondAttribute="centerX" id="n5H-Se-Ic1"/>
+                            <constraint firstItem="Lmb-o4-oC8" firstAttribute="top" secondItem="4Dg-LS-wz7" secondAttribute="top" constant="242" id="Gv0-og-iXE"/>
+                            <constraint firstItem="Lmb-o4-oC8" firstAttribute="centerX" secondItem="Zpw-KZ-1w4" secondAttribute="centerX" id="MBR-2Q-kZA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Dg-LS-wz7"/>
                     </view>
+                    <connections>
+                        <outlet property="cuisine" destination="Lmb-o4-oC8" id="F2Q-LJ-Yxx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xdd-GJ-eAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
