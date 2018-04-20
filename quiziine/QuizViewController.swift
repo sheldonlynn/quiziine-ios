@@ -25,6 +25,9 @@ class QuizViewController: UIViewController, SegueDelegate {
     @IBOutlet weak var quizTitle: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
     
+    @IBAction func goHome(_ sender: Any) {
+        performSegue(withIdentifier: "ShowHomeFromQuiz", sender: self)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         questions = quiz?["questions"] as? [[String: Any]]
@@ -120,7 +123,7 @@ class QuizViewController: UIViewController, SegueDelegate {
     
     func runSegue(identifier: String) {
         print(identifier)
-        self.performSegue(withIdentifier: "ShowResult", sender: self)
+        self.performSegue(withIdentifier: identifier, sender: self)
     }
 
     /*

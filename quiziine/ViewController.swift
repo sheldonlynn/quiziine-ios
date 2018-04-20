@@ -7,12 +7,9 @@
 //
 
 import UIKit
-import CoreLocation
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     @IBOutlet weak var quizListCollectionView: UICollectionView!
-    let locationManager = CLLocationManager()
-    var coordinate: CLLocationCoordinate2D?
     
     let quizzes: [[String: Any]] = [
         [
@@ -202,17 +199,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if let flowLayout = quizListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
         }
-        
-        //set up core location
-        locationManager.requestWhenInUseAuthorization()
-        
-        // If location services is enabled get the users location
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest // You can change the locaiton accuary here.
-            locationManager.startUpdatingLocation()
-        }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -247,40 +233,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             receiver.quiz = quiz
         }
     }
-    
-    // Print out the location to the console
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            print(location.coordinate)
-        }
-    }
-    
-    // If we have been denied access give the user the option to change it
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if(status == CLAuthorizationStatus.denied) {
-            showLocationDisabledPopUp()
-        }
-    }
-    
-    // Show the popup to the user if we have been deined access
-    func showLocationDisabledPopUp() {
-        let alertController = UIAlertController(title: "Background Location Access Disabled",
-                                                message: "In order to quiziine, we need to know where you are located",
-                                                preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
-            if let url = URL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-        alertController.addAction(openAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
+}
 
-
+extension UIViewController {
+    class func displaySpinner(onView : UIView) -> UIView {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        return spinnerView
+    }
+    
+    class func removeSpinner(spinner :UIView) {
+        DispatchQueue.main.async {
+            spinner.removeFromSuperview()
+        }
+    }
 }
 

@@ -64,9 +64,20 @@
                         </button>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOG-Yr-zDh">
+                    <rect key="frame" x="329" y="20" width="30" height="57"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="37"/>
+                    <state key="normal" title="X">
+                        <color key="titleColor" red="0.53725490200000003" green="0.87450980389999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="goBack:" destination="-1" eventType="touchUpInside" id="nv8-DZ-IHi"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TOG-Yr-zDh" secondAttribute="trailing" constant="16" id="1sz-d9-4Vu"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NtH-kl-da6" secondAttribute="trailing" constant="20" id="21w-oz-6vb"/>
                 <constraint firstItem="NtH-kl-da6" firstAttribute="top" secondItem="WQn-T6-CEC" secondAttribute="bottom" constant="30" id="4wY-1i-yzR"/>
                 <constraint firstItem="7CB-Cv-D8F" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="65" id="fmu-lw-OrS"/>
@@ -74,6 +85,7 @@
                 <constraint firstItem="NtH-kl-da6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="p0V-hd-b1o"/>
                 <constraint firstItem="WQn-T6-CEC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rIL-Zt-yY8"/>
                 <constraint firstItem="WQn-T6-CEC" firstAttribute="top" secondItem="7CB-Cv-D8F" secondAttribute="bottom" constant="20" id="veG-VK-2xI"/>
+                <constraint firstItem="TOG-Yr-zDh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="wdZ-NS-K0u"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="68.5" y="59.5"/>

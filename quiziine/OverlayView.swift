@@ -12,7 +12,6 @@ protocol SegueDelegate {
 import UIKit
 
 class OverlayView: UIView {
-    
     @IBOutlet var contentView: UIView!
     weak var parentController: UIViewController?
     var delegate: SegueDelegate?
@@ -44,6 +43,10 @@ class OverlayView: UIView {
     }
     @IBAction func findRestaurant(_ sender: Any) {
         runSegue(identifier: "ShowResult")
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        runSegue(identifier: "ShowHomeFromQuiz")
     }
     
     func runSegue(identifier: String) {

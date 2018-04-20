@@ -10,44 +10,74 @@ import UIKit
 import Alamofire
 import CoreLocation
 import SwiftyJSON
+import MapKit
 
-class ResultViewController: UIViewController {
+class ResultViewController: UIViewController, CLLocationManagerDelegate {
     var foodType: String?
     var result: JSON?
-    @IBOutlet weak var cuisine: UILabel!
-    
+    let locationManager = CLLocationManager()
+    var location: CLLocationCoordinate2D?
+    let restAnnotation = MKPointAnnotation()
+
+//    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBAction func returnHome(_ sender: Any) {
+        performSegue(withIdentifier: "ShowHomeFromResult", sender: self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        cuisine.text = foodType!
-        getPlace(cuisine: foodType!)
+        
+        //set up core location
+        locationManager.requestWhenInUseAuthorization()
+        
+        // If location services is enabled get the users location
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest // You can change the locaiton accuary here.
+            locationManager.startUpdatingLocation()
+        }
     }
     
-    func getPlace(cuisine: String) {
-        var url: String
+    func getPlace(cuisine: String, location: CLLocationCoordinate2D) {
+        let sv = UIViewController.displaySpinner(onView: self.view)
+        var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyAusDburPBCAa473e-6YT_sHs-AJ7ESWNE&location=\(location.latitude),\(location.longitude)&type=restaurant&radius=3000"
         
         if cuisine != "" {
-            url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyAusDburPBCAa473e-6YT_sHs-AJ7ESWNE&location=49.250762,-123.003266&type=restaurant&keyword=\(cuisine)&radius=5000"
-        } else {
-            url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyAusDburPBCAa473e-6YT_sHs-AJ7ESWNE&location=49.250762,-123.003266&type=food&radius=5000"
+            url += "&keyword=\(cuisine)"
         }
 
         Alamofire.request(url).responseJSON { response in
             if let data = response.data {
                 if let json = try? JSON(data: data) {
-                    if (json["results"].count == 0) {
-                        self.getPlace(cuisine: "")
-                    } else {
-                        self.result = json["results"][0]
-                        print(self.result)
-                    }
+                    self.result = json["results"][0]
+                    print(self.result)
+                    UIViewController.removeSpinner(spinner: sv)
+                    self.setUpView()
                 }
             }
         }
     }
     
-    func getCoordinates() {
+    func setUpView() {
+        let latitude = self.result!["geometry"]["location"]["lat"].doubleValue
+        let longitude = self.result!["geometry"]["location"]["lng"].doubleValue
+        let restName = self.result!["name"].stringValue
+        let restAddress = self.result!["vicinity"].stringValue
         
+        nameLabel.text = restName
+        addressLabel.text = restAddress
+        
+        print("latitude: \(latitude)")
+        print("longitude: \(longitude)")
+        
+        restAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+        restAnnotation.title = restName
+        mapView.addAnnotation(restAnnotation)
+        
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,15 +85,41 @@ class ResultViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // Print out the location to the console
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            if (self.location != nil) { return }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+            self.location = location.coordinate
+            
+            getPlace(cuisine: foodType!, location: location.coordinate)
+        }
     }
-    */
+    
+    // If we have been denied access give the user the option to change it
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if(status == CLAuthorizationStatus.denied) {
+            showLocationDisabledPopUp()
+        }
+    }
+    
+    // Show the popup to the user if we have been deined access
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Background Location Access Disabled",
+                                                message: "In order to quiziine, we need to know where you are located",
+                                                preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 
 }
