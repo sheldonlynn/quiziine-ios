@@ -12,14 +12,23 @@ import CoreLocation
 import SwiftyJSON
 import MapKit
 
+struct Connectivity {
+    static let sharedInstance = NetworkReachabilityManager()!
+    static var isConnectedToInternet:Bool {
+        return self.sharedInstance.isReachable
+    }
+}
+
 class ResultViewController: UIViewController, CLLocationManagerDelegate {
     var foodType: String?
     var result: JSON?
     let locationManager = CLLocationManager()
     var location: CLLocationCoordinate2D?
     let restAnnotation = MKPointAnnotation()
-
-//    @IBOutlet weak var mapView: MKMapView!
+    var alertController: UIAlertController?
+    var sv: UIView?
+    var internet = true
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
@@ -33,6 +42,10 @@ class ResultViewController: UIViewController, CLLocationManagerDelegate {
         //set up core location
         locationManager.requestWhenInUseAuthorization()
         
+        if !Connectivity.isConnectedToInternet {
+            internet = false
+        }
+        
         // If location services is enabled get the users location
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -41,8 +54,14 @@ class ResultViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if !internet {
+            showInternetDisabledPopUp()
+        }
+    }
+    
     func getPlace(cuisine: String, location: CLLocationCoordinate2D) {
-        let sv = UIViewController.displaySpinner(onView: self.view)
+        sv = UIViewController.displaySpinner(onView: self.view)
         var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyAusDburPBCAa473e-6YT_sHs-AJ7ESWNE&location=\(location.latitude),\(location.longitude)&type=restaurant&radius=3000"
         
         if cuisine != "" {
@@ -53,8 +72,7 @@ class ResultViewController: UIViewController, CLLocationManagerDelegate {
             if let data = response.data {
                 if let json = try? JSON(data: data) {
                     self.result = json["results"][0]
-                    print(self.result)
-                    UIViewController.removeSpinner(spinner: sv)
+                    UIViewController.removeSpinner(spinner: self.sv!)
                     self.setUpView()
                 }
             }
@@ -105,21 +123,34 @@ class ResultViewController: UIViewController, CLLocationManagerDelegate {
     
     // Show the popup to the user if we have been deined access
     func showLocationDisabledPopUp() {
-        let alertController = UIAlertController(title: "Background Location Access Disabled",
+        self.alertController = UIAlertController(title: "Background Location Access Disabled",
                                                 message: "In order to quiziine, we need to know where you are located",
                                                 preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
+        alertController?.addAction(cancelAction)
         
         let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
             if let url = URL(string: UIApplicationOpenSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
-        alertController.addAction(openAction)
+        alertController?.addAction(openAction)
         
-        self.present(alertController, animated: true, completion: nil)
+        self.present(alertController!, animated: true, completion: nil)
+    }
+    
+    func showInternetDisabledPopUp() {
+        self.alertController = UIAlertController(title: "Internet Disabled",
+                                                message: "Please enable internet to quiziine",
+                                                preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+            self.performSegue(withIdentifier: "ShowHomeFromResult", sender: self)
+        }
+        alertController?.addAction(cancelAction)
+        
+        self.present(alertController!, animated: true, completion: nil)
     }
 
 }
