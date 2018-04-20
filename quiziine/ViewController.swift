@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var quizListCollectionView: UICollectionView!
+    let locationManager = CLLocationManager()
+    var coordinate: CLLocationCoordinate2D?
+    
     let quizzes: [[String: Any]] = [
         [
             "title": "Got Friends?",
@@ -54,13 +58,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     "result": "Rachel",
                     "image": "rachel",
                     "description": "Rich but still friendly. She's a cool girl!",
-                    "cuisine": "french"
+                    "cuisine": "chinese"
                 ],
                 [
                     "result": "Chandler",
                     "image": "chandler",
                     "description": "Self proclaimed ladies man who cracks a funny joke",
-                    "cuisine": "burgers"
+                    "cuisine": "burger"
                 ],
                 [
                     "result": "Joey",
@@ -192,11 +196,23 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        //set up collection view
         quizListCollectionView.register(UINib.init(nibName: "QuizListCell", bundle: nil), forCellWithReuseIdentifier: "QuizListCell")
         if let flowLayout = quizListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
         }
+        
+        //set up core location
+        locationManager.requestWhenInUseAuthorization()
+        
+        // If location services is enabled get the users location
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest // You can change the locaiton accuary here.
+            locationManager.startUpdatingLocation()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -230,6 +246,39 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             let receiver = segue.destination as! QuizViewController
             receiver.quiz = quiz
         }
+    }
+    
+    // Print out the location to the console
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print(location.coordinate)
+        }
+    }
+    
+    // If we have been denied access give the user the option to change it
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if(status == CLAuthorizationStatus.denied) {
+            showLocationDisabledPopUp()
+        }
+    }
+    
+    // Show the popup to the user if we have been deined access
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Background Location Access Disabled",
+                                                message: "In order to quiziine, we need to know where you are located",
+                                                preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 
 

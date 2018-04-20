@@ -1,0 +1,6 @@
+framework module Pods_quiziineTests {
+  umbrella header "Pods-quiziineTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

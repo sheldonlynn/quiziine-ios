@@ -24,7 +24,6 @@ class QuizQuestionCell: UICollectionViewCell {
         
         questionLabel.text = question?["query"] as? String
         
-        print(question)
 //        answers = question?["answers"] as? [String: Any]
         
 //        let stackView = UIStackView(arrangedSubviews: createButtons(named: answers!))
